@@ -10,7 +10,6 @@ import android.view.WindowManager;
 import java.util.List;
 
 public class MainActivity extends WearableActivity {
-
     private static final int SPEECH_REQUEST_CODE = 0;
     private String TAG = "MainActivity";
 
@@ -76,8 +75,15 @@ public class MainActivity extends WearableActivity {
                 intent.putExtra(CardActivity.DESC, temp);
                 startActivity(intent);
                 finish();
-            } else if (spokenText.contains("turn") && (spokenText.contains("lamp") || spokenText.contains("light") || spokenText.contains("led"))) {
-                ((BaseApplication) getApplication()).myBlueComms.turnLed(!spokenText.contains("off"));
+            } else if (spokenText.contains("lamp") || spokenText.contains("light") || spokenText.contains("led")) {
+                if(spokenText.contains("to ")) {
+                    String color = ColorSearch.search(spokenText.substring(spokenText.indexOf("to ") + 3));
+                    if(color != null) {
+                        ((BaseApplication) getApplication()).myBlueComms.setLed(color);
+                    }
+                } else if(spokenText.contains("turn")) {
+                    ((BaseApplication) getApplication()).myBlueComms.turnLed(!spokenText.contains("off"));
+                }
             } else if (spokenText.contains("light")) {
                 float temp = ((BaseApplication) getApplication()).myBlueComms.getDataI('p');
                 intent.putExtra(CardActivity.TITLE, "Light level");

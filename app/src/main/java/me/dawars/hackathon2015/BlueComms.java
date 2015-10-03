@@ -53,6 +53,41 @@ public class BlueComms {
         return true;
     }
 
+    public int getDataI(char t) {
+        Log.d(TAG, "getDataI("+t+")");
+        try {
+            pw.print(t);
+            pw.flush();
+            return Integer.parseInt(br.readLine());
+        } catch (Exception e) {
+            e.printStackTrace();
+            close();
+        }
+        return -1;
+    }
+
+    String ledColor = "255 255 255 ";
+
+    public void turnLed(boolean b) {
+        Log.d(TAG, "turnLed("+b+")");
+        try {
+            if(b)
+                pw.print("l "+ledColor);
+            else
+                pw.print("l 0 0 0 ");
+            pw.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+            close();
+        }
+    }
+
+    public void setLed(String color) {
+        Log.d(TAG, "setLed("+color+")");
+        ledColor = color;
+        turnLed(true);
+    }
+
     public void close() {
         Log.d(TAG, "close()");
         try {
@@ -69,33 +104,6 @@ public class BlueComms {
             btSocket.close();
         } catch(Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    public int getDataI(char t) {
-        Log.d(TAG, "getDataI("+t+")");
-        try {
-            pw.print(t);
-            pw.flush();
-            return Integer.parseInt(br.readLine());
-        } catch (Exception e) {
-            e.printStackTrace();
-            close();
-        }
-        return -1;
-    }
-
-    public void turnLed(boolean b) {
-        Log.d(TAG, "turnLed("+b+")");
-        try {
-            if(b)
-                pw.print("l 255 0 127 ");
-            else
-                pw.print("l 0 0 0 ");
-            pw.flush();
-        } catch (Exception e) {
-            e.printStackTrace();
-            close();
         }
     }
 }
