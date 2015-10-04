@@ -16,7 +16,7 @@ public class BlueComms {
     private static final UUID MY_UUID =
             UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private BluetoothAdapter mBluetoothAdapter;
-    private static final String MAC = "98:D3:31:60:2B:37";
+    private static final String MAC = "98:76:B6:00:1A:2E";//the MAC address of your Bluetooth module
     private BluetoothDevice device;
     private BluetoothSocket btSocket;
     private BufferedReader br;
